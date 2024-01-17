@@ -30,13 +30,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void initOnclicks() {
-        onClickEnglisch();
+        onClickEnglish();
+        onClickFrench();
     }
 
-    protected void onClickEnglisch() {
+    protected void onClickEnglish() {
         englishButton.setOnClickListener(view -> {
             Intent resultIntent = new Intent(this, TranslationActivity.class);
             resultIntent.putExtra(TranslationActivity.TRANSLATION_LANGUAGE, "EN");
+            startActivity(resultIntent);
+        });
+    }
+
+    protected void onClickFrench() {
+        frenchButton.setOnClickListener(view -> {
+            Intent resultIntent = new Intent(this, TranslationActivity.class);
+            resultIntent.putExtra(TranslationActivity.TRANSLATION_LANGUAGE, "FR");
             startActivity(resultIntent);
         });
     }
