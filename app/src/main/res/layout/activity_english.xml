@@ -22,24 +22,28 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="150dp"
+            android:layout_marginTop="150dp"
+            android:layout_margin="100dp"
             android:text="English" />
 
         <EditText
             android:id="@+id/inputText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_margin="50dp" />
 
         <TextView
             android:id="@+id/translatedText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Placeholder" />
+            android:text="Placeholder"
+            android:layout_margin="50dp" />
 
         <Button
             android:id="@+id/translateButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Translate" />
+            android:text="Translate"
+            android:layout_margin="50dp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
