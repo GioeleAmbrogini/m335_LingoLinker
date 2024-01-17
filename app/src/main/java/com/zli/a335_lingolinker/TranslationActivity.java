@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class EnglishActivity extends AppCompatActivity {
+public class TranslationActivity extends AppCompatActivity {
 
     private Button returnButton;
 
@@ -18,15 +18,30 @@ public class EnglishActivity extends AppCompatActivity {
 
     private TextView translatedText;
 
+    private String language;
+
+    private TextView title;
+
     public static final String TRANSLATION_LANGUAGE = "lang";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_english);
+        setContentView(R.layout.activity_translation);
 
         initViews();
         initOnclicks();
+        initParam();
+    }
+
+    protected void initParam() {
+        Intent intent =getIntent();
+        language = intent.getStringExtra("lang");
+        if (language.equals("EN")) {
+            title.setText("English");
+        } else {
+            title.setText("French");
+        }
     }
 
     protected void initViews() {
@@ -34,6 +49,7 @@ public class EnglishActivity extends AppCompatActivity {
         translateButton = findViewById(R.id.translateButton);
         inputText = findViewById(R.id.inputText);
         translatedText = findViewById(R.id.translatedText);
+        title = findViewById(R.id.appTitle);
     }
 
     protected void initOnclicks() {

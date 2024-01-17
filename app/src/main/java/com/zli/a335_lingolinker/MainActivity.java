@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onClickEnglisch() {
         englishButton.setOnClickListener(view -> {
-            Intent resultIntent = new Intent(this, EnglishActivity.class);
-            resultIntent.putExtra(EnglishActivity.TRANSLATION_LANGUAGE, "EN");
+            Intent resultIntent = new Intent(this, TranslationActivity.class);
+            resultIntent.putExtra(TranslationActivity.TRANSLATION_LANGUAGE, "EN");
             startActivity(resultIntent);
         });
     }
