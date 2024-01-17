@@ -8,6 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TranslationActivity extends AppCompatActivity {
 
     private Button returnButton;
@@ -23,6 +26,8 @@ public class TranslationActivity extends AppCompatActivity {
     private TextView title;
 
     public static final String TRANSLATION_LANGUAGE = "lang";
+
+    public List<TranslatedWords> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +72,11 @@ public class TranslationActivity extends AppCompatActivity {
     protected void onClickTranslate() {
         translateButton.setOnClickListener(view -> {
             String toTranslatingText = inputText.getText().toString();
+            String test = "hello";
             translatedText.setText(toTranslatingText);
+
+            TranslatedWords words = new TranslatedWords(toTranslatingText, test, language);
+            list.add(words);
         });
     }
 }
