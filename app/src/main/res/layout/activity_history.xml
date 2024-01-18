@@ -29,13 +29,12 @@
 
     <LinearLayout
         android:id="@+id/historyLayout"
-        android:layout_width="400dp"
-        android:layout_height="163dp"
-        android:layout_marginBottom="300dp"
+        android:layout_width="402dp"
+        android:layout_height="600dp"
+        android:layout_marginBottom="16dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/historyTitle"
-        app:layout_constraintVertical_bias="0.333"
-        tools:layout_editor_absoluteX="5dp" />
+        tools:layout_editor_absoluteX="4dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
