@@ -33,6 +33,7 @@ android {
 
 dependencies {
 
+    implementation("com.google.code.gson:gson:2.8.5")
     implementation("com.android.volley:volley:1.2.1")
     implementation("com.google.android.gms:play-services-cronet:18.0.1")
     implementation("com.deepl.api:deepl-java:1.4.0")
