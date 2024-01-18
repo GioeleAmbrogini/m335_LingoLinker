@@ -72,16 +72,20 @@ public class HistoryActivity extends AppCompatActivity {
 
     protected void initHistoryWords() {
         for (int i = 0; i < list.size(); i++) {
-            TranslatedWords translatedWords = list.get(i);
-
-            String original = translatedWords.getOriginal();
-            String translated = translatedWords.getTranslated();
-            String language = translatedWords.getLanguage();
-
-            TextView textView = new TextView(this);
-            String text = "Or: " + original + " Tr: " + translated + "  Ln: " + language;
-            textView.setText(text);
-            historyLayout.addView(textView);
+            setTextView(i);
         }
+    }
+
+    private void setTextView(int i) {
+        TranslatedWords translatedWords = list.get(i);
+
+        String original = translatedWords.getOriginal();
+        String translated = translatedWords.getTranslated();
+        String language = translatedWords.getLanguage();
+
+        TextView textView = new TextView(this);
+        String text = "Or: " + original + " Tr: " + translated + "  Ln: " + language;
+        textView.setText(text);
+        historyLayout.addView(textView);
     }
 }
