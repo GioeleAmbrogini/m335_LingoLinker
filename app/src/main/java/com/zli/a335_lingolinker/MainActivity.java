@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onClickEnglish() {
         englishButton.setOnClickListener(view -> {
             Intent resultIntent = new Intent(this, TranslationActivity.class);
-            resultIntent.putExtra(TranslationActivity.TRANSLATION_LANGUAGE, "EN");
+            resultIntent.putExtra(TranslationActivity.TRANSLATION_LANGUAGE, "en-GB");
             startActivity(resultIntent);
         });
     }
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onClickFrench() {
         frenchButton.setOnClickListener(view -> {
             Intent resultIntent = new Intent(this, TranslationActivity.class);
-            resultIntent.putExtra(TranslationActivity.TRANSLATION_LANGUAGE, "FR");
+            resultIntent.putExtra(TranslationActivity.TRANSLATION_LANGUAGE, "fr");
             startActivity(resultIntent);
         });
     }
