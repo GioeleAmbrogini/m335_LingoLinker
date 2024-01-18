@@ -22,11 +22,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -202,5 +204,22 @@ public class TranslationActivity extends AppCompatActivity {
         editor.putString("wordList", json);
 
         editor.apply();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        list = getListFromSharedPreferences();
+    }
+
+    private List<TranslatedWords> getListFromSharedPreferences() {
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        String json = sharedPref.getString("wordList", "[]");
+
+        Gson gson = new Gson();
+        Type type = new TypeToken<List<TranslatedWords>>(){}.getType();
+
+        return gson.fromJson(json, type);
     }
 }
