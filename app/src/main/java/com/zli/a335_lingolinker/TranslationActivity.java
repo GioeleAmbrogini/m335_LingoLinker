@@ -194,7 +194,7 @@ public class TranslationActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = this.getSharedPreferences("historyOfTranslations", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
 
         Gson gson = new Gson();
@@ -214,7 +214,7 @@ public class TranslationActivity extends AppCompatActivity {
     }
 
     private List<TranslatedWords> getListFromSharedPreferences() {
-        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = this.getSharedPreferences("historyOfTranslations", Context.MODE_PRIVATE);
         String json = sharedPref.getString("wordList", "[]");
 
         Gson gson = new Gson();
