@@ -1,17 +1,39 @@
 package com.zli.a335_lingolinker;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONArray;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.deepl.api.*;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class TranslationActivity extends AppCompatActivity {
+    Translator translator;
 
     private Button returnButton;
 
@@ -24,6 +46,15 @@ public class TranslationActivity extends AppCompatActivity {
     private String language;
 
     private TextView title;
+
+    private String toTranslatingText;
+
+
+    private RequestQueue mRequestQueue;
+    private StringRequest mStringRequest;
+    private String url = "https://api-free.deepl.com/v2/translate";
+
+    private String apiKey = "DeepL-Auth-Key ede6af0c-469a-0e94-7d82-f25e66cb72a2:fx";
 
     public static final String TRANSLATION_LANGUAGE = "lang";
 
@@ -42,7 +73,7 @@ public class TranslationActivity extends AppCompatActivity {
     protected void initParam() {
         Intent intent =getIntent();
         language = intent.getStringExtra("lang");
-        if (language.equals("EN")) {
+        if (language.equals("en-GB")) {
             title.setText("English");
         } else {
             title.setText("French");
@@ -69,14 +100,86 @@ public class TranslationActivity extends AppCompatActivity {
         });
     }
 
-    protected void onClickTranslate() {
+   protected void onClickTranslate() {
         translateButton.setOnClickListener(view -> {
-            String toTranslatingText = inputText.getText().toString();
-            String test = "hello";
-            translatedText.setText(toTranslatingText);
+            toTranslatingText = inputText.getText().toString();
 
-            TranslatedWords words = new TranslatedWords(toTranslatingText, test, language);
-            list.add(words);
+            getData();
         });
+    }
+
+    private void setSuccesfulText(String succesfulText) {
+        translatedText.setText(succesfulText);
+    }
+
+    private void getData() {
+        JSONObject jsonPayload = getJsonObject();
+        mStringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    getSuccessfulString(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, getErrorListener()) {
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                return jsonPayload.toString().getBytes();
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                headers.put("Authorization", apiKey);
+                return headers;
+            }
+        };
+
+        mRequestQueue.add(mStringRequest);
+    }
+
+    private void getSuccessfulString(String response) throws JSONException {
+        JSONObject jsonResponse = new JSONObject(response);
+
+        JSONArray translationsArray = jsonResponse.getJSONArray("translations");
+
+        JSONObject translationObject = translationsArray.getJSONObject(0);
+
+        String succesfultext = translationObject.getString("text");
+
+        setSuccesfulText(succesfultext);
+
+        Log.d(TAG, succesfultext);
+    }
+
+    @NonNull
+    private static Response.ErrorListener getErrorListener() {
+        return new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i(TAG, "Error :" + error.toString());
+            }
+        };
+    }
+
+    @NonNull
+    private JSONObject getJsonObject() {
+        mRequestQueue = Volley.newRequestQueue(this);
+
+        JSONArray textArray = new JSONArray();
+        textArray.put(toTranslatingText);
+
+        JSONObject jsonPayload = new JSONObject();
+        try {
+            jsonPayload.put("text", textArray);
+            jsonPayload.put("target_lang", language);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonPayload;
     }
 }
