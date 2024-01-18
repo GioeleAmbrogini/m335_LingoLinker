@@ -18,6 +18,10 @@ public class TranslatedWords {
         this.original = original;
     }
 
+    public String getOriginal() {
+        return original;
+    }
+
     public String getTranslated() {
         return translated;
     }
