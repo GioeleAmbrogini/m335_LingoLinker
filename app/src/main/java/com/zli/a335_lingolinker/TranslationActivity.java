@@ -33,8 +33,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class TranslationActivity extends AppCompatActivity {
-    Translator translator;
-
     private Button returnButton;
 
     private Button translateButton;
@@ -49,9 +47,10 @@ public class TranslationActivity extends AppCompatActivity {
 
     private String toTranslatingText;
 
-
     private RequestQueue mRequestQueue;
+
     private StringRequest mStringRequest;
+
     private String url = "https://api-free.deepl.com/v2/translate";
 
     private String apiKey = "DeepL-Auth-Key ede6af0c-469a-0e94-7d82-f25e66cb72a2:fx";
@@ -110,6 +109,12 @@ public class TranslationActivity extends AppCompatActivity {
 
     private void setSuccesfulText(String succesfulText) {
         translatedText.setText(succesfulText);
+        saveDataIntoList(succesfulText);
+    }
+
+    private void saveDataIntoList(String succesfulText) {
+        TranslatedWords newTranslation = new TranslatedWords(toTranslatingText, succesfulText, language);
+        list.add(newTranslation);
     }
 
     private void getData() {
