@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(resultIntent);
         });
     }
+
     protected void onClickHistory() {
         historyButton.setOnClickListener(view -> {
             Intent resultIntent = new Intent(this, HistoryActivity.class);
