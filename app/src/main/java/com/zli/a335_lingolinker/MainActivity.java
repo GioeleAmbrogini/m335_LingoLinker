@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     protected void initOnclicks() {
         onClickEnglish();
         onClickFrench();
+        onClickHistory();
     }
 
     protected void onClickEnglish() {
@@ -49,4 +50,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(resultIntent);
         });
     }
+    protected void onClickHistory() {
+        historyButton.setOnClickListener(view -> {
+            Intent resultIntent = new Intent(this, HistoryActivity.class);
+            startActivity(resultIntent);
+        });
+    }
+
 }
