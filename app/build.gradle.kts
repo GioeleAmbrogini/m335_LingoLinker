@@ -14,7 +14,7 @@ android {
 
     defaultConfig {
         applicationId = "com.zli.a335_lingolinker"
-        minSdk = 31
+        minSdk = 27
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
