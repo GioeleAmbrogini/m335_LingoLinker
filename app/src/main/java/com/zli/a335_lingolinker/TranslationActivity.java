@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
@@ -62,6 +64,8 @@ public class TranslationActivity extends AppCompatActivity {
 
     public List<TranslatedWords> list = new ArrayList<>();
 
+    Vibrator vibrator;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,7 +110,13 @@ public class TranslationActivity extends AppCompatActivity {
         translateButton.setOnClickListener(view -> {
             toTranslatingText = inputText.getText().toString();
             getData();
+            initActuator();
         });
+    }
+
+    private void initActuator() {
+        vibrator = this.getSystemService(Vibrator.class);
+        vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK));
     }
 
     private void setSuccesfulText(String succesfulText) {
